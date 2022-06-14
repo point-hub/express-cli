@@ -20,5 +20,5 @@ export declare abstract class BaseCommand extends Command {
     abstract cmdSummary(): string;
     abstract cmdArguments(): Array<IArgument>;
     abstract cmdOptions(): Array<IOption>;
-    abstract handle(...params: Array<string>): void | Promise<void>;
+    abstract handle(...params: Array<unknown>): void | Promise<void>;
 }

@@ -52,5 +52,5 @@ export abstract class BaseCommand extends Command {
 
   abstract cmdOptions(): Array<IOption>;
 
-  abstract handle(...params: Array<string>): void | Promise<void>;
+  abstract handle(...params: Array<unknown>): void | Promise<void>;
 }
