@@ -1,6 +1,6 @@
 {
   "name": "@point-hub/express-cli",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Express command line interface wrapper",
   "type": "module",
   "main": "lib/index.js",
