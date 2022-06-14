@@ -93,3 +93,18 @@ import "../lib/index.js";
 ```
 
 5. try your command using `node bin/cli.js example --greet=Hello`
+
+## Known Issues
+
+-  [jest-resolve cannot find module #ansi-styles](https://github.com/chalk/chalk/issues/532)
+
+Workaround:
+
+Using "moduleNameMapper" in your jest configuration will make test-resolve work as expected
+```
+"jest": {
+  "moduleNameMapper": {
+    "#(.*)": "<rootDir>/node_modules/$1"
+  }
+}
+```
