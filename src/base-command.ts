@@ -16,41 +16,41 @@ export interface IOption {
   default?: string;
 }
 
+export interface IAttribute {
+  name: string;
+  description: string;
+  summary: string;
+  arguments: Array<IArgument>;
+  options: Array<IOption>;
+}
+
 export abstract class BaseCommand extends Command {
   private program: Command;
 
   constructor(program: Command) {
     super();
     this.program = program;
-    const command = this.program.command(this.cmdName());
-    command.description(this.cmdDescription());
-    command.summary(this.cmdSummary());
-    for (let index = 0; index < this.cmdArguments().length; index++) {
+    const command = this.program.command(this.attribute().name);
+    command.description(this.attribute().description);
+    command.summary(this.attribute().summary);
+    for (let index = 0; index < this.attribute().arguments.length; index++) {
       command.argument(
-        this.cmdArguments()[index].name,
-        this.cmdArguments()[index]?.description,
-        this.cmdArguments()[index]?.default
+        this.attribute().arguments[index].name,
+        this.attribute().arguments[index]?.description,
+        this.attribute().arguments[index]?.default
       );
     }
-    for (let index = 0; index < this.cmdOptions().length; index++) {
+    for (let index = 0; index < this.attribute().options.length; index++) {
       command.option(
-        this.cmdOptions()[index].flags,
-        this.cmdOptions()[index]?.description,
-        this.cmdOptions()[index]?.default
+        this.attribute().options[index].flags,
+        this.attribute().options[index]?.description,
+        this.attribute().options[index]?.default
       );
     }
     command.action(this.handle);
   }
 
-  abstract cmdName(): string;
-
-  abstract cmdDescription(): string;
-
-  abstract cmdSummary(): string;
-
-  abstract cmdArguments(): Array<IArgument>;
-
-  abstract cmdOptions(): Array<IOption>;
+  abstract attribute(): IAttribute;
 
   abstract handle(...params: Array<unknown>): void | Promise<void>;
 }

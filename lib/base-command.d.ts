@@ -12,13 +12,16 @@ export interface IOption {
     description?: string;
     default?: string;
 }
+export interface IAttribute {
+    name: string;
+    description: string;
+    summary: string;
+    arguments: Array<IArgument>;
+    options: Array<IOption>;
+}
 export declare abstract class BaseCommand extends Command {
     private program;
     constructor(program: Command);
-    abstract cmdName(): string;
-    abstract cmdDescription(): string;
-    abstract cmdSummary(): string;
-    abstract cmdArguments(): Array<IArgument>;
-    abstract cmdOptions(): Array<IOption>;
+    abstract attribute(): IAttribute;
     abstract handle(...params: Array<unknown>): void | Promise<void>;
 }
