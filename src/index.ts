@@ -2,7 +2,7 @@ import chalk from "chalk";
 import { createCommand } from "commander";
 import { IGenericClass } from "./base-command.js";
 
-export { BaseCommand, IGenericClass, IArgument, IOption } from "./base-command.js";
+export { BaseCommand, IGenericClass, IAttribute, IArgument, IOption } from "./base-command.js";
 
 export class ExpressCli {
   program = createCommand();
