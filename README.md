@@ -26,34 +26,28 @@ npm install @point-hub/express-cli
 1. create command file `src/commands/example-command.ts`
 
 ```ts
-import { BaseCommand, IArgument, IOption } from "@point-hub/express-cli";
+import { BaseCommand, IAttribute, IArgument, IOption } from "@point-hub/express-cli";
 
 export class ExampleCommand extends BaseCommand {
-  cmdName(): string {
-    return "example";
-  }
-  cmdDescription(): string {
-    return "description";
-  }
-  cmdSummary(): string {
-    return "summary";
-  }
-  cmdArguments(): IArgument[] {
-    return [
-      {
-        name: "<name>",
-        description: "Example Argument",
-      },
-    ];
-  }
-  cmdOptions(): IOption[] {
-    return [
-      {
-        flags: "-g, --greet <value>",
-        description: "Example Option",
-        default: "Hello",
-      },
-    ];
+  attribute(): IAttribute {
+    return {
+      name: "example",
+      description: "description",
+      summary: "summary",
+      arguments: [
+        {
+          name: "<name>",
+          description: "Example Argument",
+        },
+      ],
+      options: [
+        {
+          flags: "-g, --greet <value>",
+          description: "Example Option",
+          default: "Hello",
+        },
+      ]
+    };
   }
   async handle(): Promise<void> {
     setTimeout(() => {
