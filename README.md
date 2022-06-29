@@ -23,57 +23,56 @@ npm install @point-hub/express-cli
 
 ## Usage Example
 
-1. create command file `src/commands/example-command.ts`
+1. create command file `src/commands/greet-command.ts`
 
 ```ts
-import { BaseCommand, IAttribute, IArgument, IOption } from "@point-hub/express-cli";
+import { BaseCommand } from "@point-hub/express-cli";
 
-export class ExampleCommand extends BaseCommand {
-  attribute(): IAttribute {
-    return {
-      name: "example",
-      description: "description",
-      summary: "summary",
+export class GreetCommand extends BaseCommand {
+  constructor() {
+    super({
+      name: "greet",
+      summary: "Welcome someone",
+      description: "Welcome someone with particular words",
+      alias: ["gret", "say"],
       arguments: [
         {
-          name: "<name>",
-          description: "Example Argument",
+          name: "name",
+          description: "Your name",
         },
       ],
       options: [
         {
-          flags: "-g, --greet <value>",
-          description: "Example Option",
-          default: "Hello",
+          type: "boolean",
+          flag: "--smile",
+          shorthand: "-s",
+          description: "Add smiley :)",
         },
-      ]
-    };
+      ],
+    });
   }
-  async handle(): Promise<void> {
-    setTimeout(() => {
-      console.log("options", this.opts());
-    }, 1000);
-    console.log("arguments", this.args);
+  handle() {
+    // handle command here
   }
 }
+
 ```
 
 2. create an entry point file `src/ìndex.ts`
 
 ```ts
-import { createRequire } from "module";
 import { ExpressCli } from "@point-hub/express-cli";
-// Import commands
-import { ExampleCommand } from "./commands/example-command.js";
+import { GreetCommand } from "./commands/greet.command.js";
 
-const require = createRequire(import.meta.url);
-const { version } = require("./package.json");
-
-const expressCli = new ExpressCli("cli", version);
-// Register commands
-expressCli.register(ExampleCommand);
-// Publish CLI
-expressCli.build();
+/**
+ * Register the commands for the application.
+ *
+ * @example
+ * command.register(ExampleCommand);
+ */
+export function commands(command: ExpressCli): void {
+  command.register(new GreetCommand());
+}
 ```
 
 3. compile typescript to `"lib"` directory
@@ -83,10 +82,15 @@ expressCli.build();
 ```js
 #!/usr/bin/env node
 
-import "../lib/index.js";
+import { commands } from "../lib/index.js";
+import { ExpressCli } from "@point-hub/express-cli";
+
+const cli = new ExpressCli("cli");
+commands(cli);
+cli.run(process.argv);
 ```
 
-5. try your command using `node bin/cli.js example --greet=Hello`
+5. try your command using `node bin/cli.js greet John`
 
 ## Known Issues
 

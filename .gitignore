@@ -1,5 +1,8 @@
-# build coverage
+# coverage build
 coverage
+
+# development build
+dist
 
 # auto generate npm
 node_modules

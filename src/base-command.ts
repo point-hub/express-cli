@@ -1,56 +1,31 @@
-import { Command } from "commander";
+import { IArgument, ICommand, IOption, IOptionBoolean } from "./command.js";
 
-export interface IGenericClass {
-  new (program: Command): void;
+export interface IParsedOptions {
+  [key: string]: string | boolean;
+}
+export interface IParsedArguments {
+  [key: string]: string;
 }
 
-export interface IArgument {
-  name: string;
-  description?: string;
-  default?: unknown;
-}
+export abstract class BaseCommand {
+  public opts: IParsedOptions = {};
+  public args: IParsedArguments = {};
 
-export interface IOption {
-  flags: string;
-  description?: string;
-  default?: string;
-}
+  public name: string;
+  public alias: string[];
+  public description: string;
+  public summary: string;
+  public arguments: Array<IArgument>;
+  public options: Array<IOption | IOptionBoolean>;
 
-export interface IAttribute {
-  name: string;
-  description: string;
-  summary: string;
-  arguments: Array<IArgument>;
-  options: Array<IOption>;
-}
-
-export abstract class BaseCommand extends Command {
-  private program: Command;
-
-  constructor(program: Command) {
-    super();
-    this.program = program;
-    const command = this.program.command(this.attribute().name);
-    command.description(this.attribute().description);
-    command.summary(this.attribute().summary);
-    for (let index = 0; index < this.attribute().arguments.length; index++) {
-      command.argument(
-        this.attribute().arguments[index].name,
-        this.attribute().arguments[index]?.description,
-        this.attribute().arguments[index]?.default
-      );
-    }
-    for (let index = 0; index < this.attribute().options.length; index++) {
-      command.option(
-        this.attribute().options[index].flags,
-        this.attribute().options[index]?.description,
-        this.attribute().options[index]?.default
-      );
-    }
-    command.action(this.handle);
+  constructor(command: ICommand) {
+    this.name = command.name;
+    this.alias = command.alias ?? [];
+    this.description = command.description;
+    this.summary = command.summary;
+    this.arguments = command.arguments;
+    this.options = command.options;
   }
 
-  abstract attribute(): IAttribute;
-
-  abstract handle(...params: Array<unknown>): void | Promise<void>;
+  abstract handle(): void | Promise<void>;
 }
