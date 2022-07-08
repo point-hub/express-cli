@@ -2,7 +2,7 @@
 coverage
 
 # development build
-dist
+lib-dev
 
 # auto generate npm
 node_modules

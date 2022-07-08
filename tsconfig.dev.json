@@ -2,9 +2,10 @@
   "extends": "./tsconfig.json",
   "exclude": [
     "test",
+    "lib-dev",
     "**/*.spec.ts"
   ],
   "compilerOptions": {
-    "outDir": "dist"
+    "outDir": "lib-dev"
   }
 }

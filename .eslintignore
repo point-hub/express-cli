@@ -1,6 +1,6 @@
 # build file
 lib
-dist
+lib-dev
 
 # build coverage
 coverage

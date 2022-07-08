@@ -1,6 +1,6 @@
 {
   "name": "@point-hub/express-cli",
-  "version": "0.1.1",
+  "version": "0.2.1",
   "description": "Express command line interface wrapper",
   "type": "module",
   "main": "lib/index.js",
@@ -8,12 +8,16 @@
     "lib/"
   ],
   "scripts": {
-    "dev": "rimraf dist && tsc -w --project tsconfig.dev.json",
-    "build": "rimraf lib && tsc --project tsconfig.build.json",
+    "dev:compile": "tsc -w --project tsconfig.dev.json",
+    "dev:resolve-path": "tsc-alias -w --project tsconfig.dev.json",
+    "dev": "shx rm -rf lib-dev && concurrently -k npm:dev:*",
+    "build:compile": "tsc --project tsconfig.build.json",
+    "build:resolve-path": "tsc-alias --project tsconfig.build.json",
+    "build": "shx rm -rf lib && npm run build:compile && npm run build:resolve-path",
     "lint": "eslint ./src/**/*.ts",
     "lint:fix": "npm run lint -- --fix",
-    "test": "jest",
-    "test:coverage": "rimraf coverage && jest --coverage"
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest --runInBand",
+    "test:coverage": "shx rm -rf coverage && npm run test -- --coverage"
   },
   "keywords": [
     "express",
@@ -27,21 +31,27 @@
     "url": "https://github.com/point-hub/express-cli.git"
   },
   "devDependencies": {
+    "@babel/core": "^7.18.6",
+    "@babel/preset-env": "^7.18.6",
+    "@babel/preset-typescript": "^7.18.6",
     "@types/express": "^4.17.13",
     "@types/inquirer": "^8.2.1",
     "@types/jest": "^27.5.1",
     "@types/node": "^17.0.42",
     "@typescript-eslint/eslint-plugin": "^5.25.0",
+    "babel-jest": "^28.1.2",
+    "concurrently": "^7.2.2",
     "eslint": "^8.15.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-typescript": "^2.7.1",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^28.1.2",
     "nodemon": "^2.0.16",
     "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
-    "ts-jest": "^28.0.2",
-    "ts-node": "^10.8.1",
+    "shx": "^0.3.4",
+    "tsc-alias": "^1.6.11",
     "typescript": "^4.7.3"
   },
   "dependencies": {

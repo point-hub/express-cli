@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import { commands } from "./dist/example/index.js";
-import { ExpressCli } from "./dist/index.js";
+import { commands } from "./lib-dev/example/index.js";
+import { ExpressCli } from "./lib-dev/index.js";
 
 const cli = new ExpressCli("node cli");
 commands(cli);
