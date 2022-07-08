@@ -46,8 +46,8 @@
   },
   "dependencies": {
     "arg": "^5.0.2",
-    "chalk": "^5.0.1",
     "cli-table3": "^0.6.2",
+    "colorette": "^2.0.19",
     "inquirer": "^9.0.0"
   }
 }

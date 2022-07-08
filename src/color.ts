@@ -1,46 +1,31 @@
-import chalk from "chalk";
+import { red, green, blue, gray, yellow, bgRed, bgGreen, bgBlue, bgYellow } from "colorette";
 
 export class Color {
-  static grayHex = "#4b5563";
-  static redHex = "#dc2626";
-  static greenHex = "#16a34a";
-  static blueHex = "#2563eb";
-  static yellowHex = "#ca8a04";
-
   static red(text: string) {
-    return chalk.hex(this.redHex)(text);
+    return red(text);
   }
   static green(text: string) {
-    return chalk.hex(this.greenHex)(text);
+    return green(text);
   }
   static blue(text: string) {
-    return chalk.hex(this.blueHex)(text);
+    return blue(text);
   }
   static gray(text: string) {
-    return chalk.hex(this.grayHex)(text);
+    return gray(text);
   }
   static yellow(text: string) {
-    return chalk.hex(this.yellowHex)(text);
+    return yellow(text);
   }
   static bgRed(text: string) {
-    return chalk.bgHex(this.redHex)(text);
+    return bgRed(text);
   }
   static bgGreen(text: string) {
-    return chalk.bgHex(this.greenHex)(text);
+    return bgGreen(text);
   }
   static bgBlue(text: string) {
-    return chalk.bgHex(this.blueHex)(text);
-  }
-  static bgGray(text: string) {
-    return chalk.bgHex(this.grayHex)(text);
+    return bgBlue(text);
   }
   static bgYellow(text: string) {
-    return chalk.bgHex(this.yellowHex)(text);
-  }
-  static hex(text: string) {
-    return chalk.hex(text);
-  }
-  static bgHex(text: string) {
-    return chalk.bgHex(text);
+    return bgYellow(text);
   }
 }
