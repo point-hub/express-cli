@@ -25,10 +25,11 @@ export class GreetCommand extends BaseCommand {
     });
   }
   async handle() {
-    const prompt = await Prompt.prompt([
+    const prompt = await Prompt.ask([
       {
         type: "confirm",
         name: "print",
+        message: "Do you want to print greeting ?",
       },
     ]);
 

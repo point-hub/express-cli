@@ -1,5 +1,4 @@
-import { QuestionCollection } from "inquirer";
+import prompts from "prompts";
 export declare class Prompt {
-    static prompt<T>(questions: QuestionCollection<T>, initialAnswers?: Partial<T>): Promise<T>;
-    static separator(): import("inquirer/lib/objects/separator");
+    static ask<T extends string>(questions: prompts.PromptObject<T> | Array<prompts.PromptObject<T>>, options?: prompts.Options): Promise<prompts.Answers<T>>;
 }

@@ -1,10 +1,10 @@
-import inquirer, { QuestionCollection } from "inquirer";
-export class Prompt {
-  static async prompt<T>(questions: QuestionCollection<T>, initialAnswers?: Partial<T>) {
-    return await inquirer.prompt(questions, initialAnswers);
-  }
+import prompts from "prompts";
 
-  static separator() {
-    return new inquirer.Separator();
+export class Prompt {
+  static async ask<T extends string>(
+    questions: prompts.PromptObject<T> | Array<prompts.PromptObject<T>>,
+    options?: prompts.Options
+  ): Promise<prompts.Answers<T>> {
+    return prompts(questions, options);
   }
 }
